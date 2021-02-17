@@ -41,8 +41,8 @@ module "ecs" {
   task_execution_role_arn     = "arn:aws:iam::${data.aws_caller_identity.this.account_id}:role/ecsTaskExecutionRole"
   service_subnets_id          = ["subnet-7d9ac91b", "subnet-7f7c5e37"]
   service_security_groups_id  = ["sg-0fee0b4e690ca603d"]
-//  ecs_target_group_alb        = module.alb.alb
-  ecs_target_group            = module.alb.ecs_target_group
+  ecs_target_group            = module.alb.alb_target_group
+  alb_listener                = module.alb.alb_listener
   container_log_group_name    = "${local.resource_name_prefix}/ecs-container-logs"
   container_log_group_region  = var.aws_region
   container_log_stream_prefix = local.resource_name_prefix

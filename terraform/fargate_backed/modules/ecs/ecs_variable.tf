@@ -79,12 +79,12 @@ variable "service_security_groups_id" {
   description = "A list of security groups' id."
 }
 
-//variable "ecs_target_group_alb" {
-//  description = "ALB for ECS target group resource."
-//}
-
 variable "ecs_target_group" {
-  description = "ECS target group resource."
+  description = "ECS target group Resource."
+}
+
+variable "alb_listener" {
+  description = "Application Load Balancer listener Resource."
 }
 
 variable "container_log_group_name" {

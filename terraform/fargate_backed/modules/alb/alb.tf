@@ -7,21 +7,6 @@ resource "aws_lb" "alb" {
 }
 
 
-resource "aws_lb_listener" "alb_listener" {
-  load_balancer_arn = aws_lb.alb.arn
-  protocol          = local.http.protocol
-  port              = local.http.port
-  default_action {
-    type = "fixed-response"
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Default Response For Load Balancer Listener."
-      status_code  = "200"
-    }
-  }
-}
-
-
 resource "aws_lb_target_group" "alb_target_group" {
   name        = "${var.resource_name_prefix}-target-group"
   vpc_id      = var.vpc_id
@@ -43,6 +28,21 @@ resource "aws_lb_target_group" "alb_target_group" {
     matcher  = "200"
   }
   tags = var.common_tags
+}
+
+
+resource "aws_lb_listener" "alb_listener" {
+  load_balancer_arn = aws_lb.alb.arn
+  protocol          = local.http.protocol
+  port              = local.http.port
+  default_action {
+    type = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Default Response For Load Balancer Listener."
+      status_code  = "200"
+    }
+  }
 }
 
 

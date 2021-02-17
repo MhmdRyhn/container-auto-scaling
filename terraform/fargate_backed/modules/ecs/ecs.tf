@@ -39,8 +39,10 @@ resource "aws_ecs_service" "container_service" {
   }
   load_balancer {
     container_name   = var.container_name
-//    elb_name = var.ecs_target_group_alb.name
     target_group_arn = var.ecs_target_group.arn
     container_port   = var.container_port
   }
+  # Amazon ECS service requires an explicit dependency on the Application Load Balancer
+  # listener rule and the Application Load Balancer listener
+  depends_on = [var.alb_listener]
 }
