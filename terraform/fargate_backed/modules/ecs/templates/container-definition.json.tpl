@@ -13,15 +13,6 @@
         "memoryReservation": ${soft_limit},
 		"image": "${image}",
 		"essential": true,
-		"healthCheck": {
-			"timeout": ${health_check_timeout},
-			"interval": ${health_check_interval},
-			"retries": ${health_check_retries},
-			"command": [
-				"[ \"CMD-SHELL\"",
-				"\"curl -f http://localhost${health_check_path} || exit 1\" ]"
-			]
-		},
 		"logConfiguration": {
 			"logDriver": "awslogs",
 			"options": {
