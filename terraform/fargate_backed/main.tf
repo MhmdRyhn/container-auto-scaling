@@ -37,3 +37,27 @@ module "ecs" {
   container_log_group_region    = var.aws_region
   container_log_stream_prefix   = local.container_log_stream_prefix
 }
+
+module "auto_scaling" {
+  source = "./modules/auto_scaling"
+  resource_name_prefix = local.resource_name_prefix
+  scaling_min_capacity = 1
+  scaling_max_capacity = 10
+  scaling_target_resource_id = "service/${module.ecs.ecs_cluster.name}/${module.ecs.ecs_service.name}"
+//  scaling_service_namespace = ""
+//  scalable_dimension = ""
+  scaling_step_size = 5
+}
+
+module "alarm" {
+  source = "./modules/cloudwatch"
+  resource_name_prefix = local.resource_name_prefix
+  common_tags = local.common_tags
+  alb_target_group = module.alb.alb_target_group
+  request_per_server_per_minute = 5
+  alarm_datapoint_creation_period = 60
+  datapoints = 1
+  datapoints_to_alarm = 1
+  scale_out_policy = module.auto_scaling.scale_out_policy
+  scale_in_policy = module.auto_scaling.scale_in_policy
+}
