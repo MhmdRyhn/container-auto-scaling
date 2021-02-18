@@ -35,3 +35,11 @@ service_security_groups_id    = ["sg-1a2b3c4d5e6f7a8b9"]
 alb_health_check_grace_period = 60
 container_log_group_name      = "ecs-container-log-group"
 container_log_stream_prefix   = "ecs-container-log-stream"
+# For the "./modules/auto_scaling" module
+scaling_min_capacity = 1
+scaling_max_capacity = 10
+# For the "./modules/cloudwatch" module
+request_per_server_per_minute   = 5
+alarm_datapoint_creation_period = 60
+datapoints                      = 1
+datapoints_to_alarm             = 1

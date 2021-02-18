@@ -130,3 +130,51 @@ variable "container_log_stream_prefix" {
   type        = string
   description = "Prefix to be used in log stream name."
 }
+
+# Variables for ./modules/auto_scaling
+variable "scaling_min_capacity" {
+  type        = number
+  description = "The min capacity of the scalable target."
+}
+
+variable "scaling_max_capacity" {
+  type        = number
+  description = "The max capacity of the scalable target."
+}
+
+# Variables for ./modules/cloudwatch
+variable "request_per_server_per_minute" {
+  type        = number
+  description = "Number of request a server can handle per minute."
+}
+
+variable "alarm_datapoint_creation_period" {
+  # evaluation interval = datapoints * period
+  #
+  # >> period, datapoints/evaluation periods, datapoints_to_alarm can be different for scale out and scale in policies.
+  type        = number
+  description = "Length of time (in seconds) to evaluate the metric to create each individual data point."
+  default     = 60 // 60 Seconds
+}
+
+variable "datapoints" {
+  # Also known as `Evaluation Periods`
+  # evaluation interval = datapoints * period
+  #
+  # >> period, datapoints/evaluation periods, datapoints_to_alarm can be different for scale out and scale in policies.
+  type        = number
+  description = "Number of the most recent data points within metric evaluation period when determining alarm state."
+  default     = 1
+}
+
+variable "datapoints_to_alarm" {
+  # This MUST be less than or equal to the `datapoints`. Otherwise, the alarm will never go into ALARM state.
+  #
+  # Let, datapoints_to_alarm = M, datapoints = N, period = P.
+  # If I configure M out of N datapoints with a period of P, then if M datapoints breaches the threshold
+  # within the evaluation inerval (N * P), then the alarm goes into ALARM state.
+  #
+  # >> period, datapoints/evaluation periods, datapoints_to_alarm can be different for scale out and scale in policies.
+  type        = string
+  description = "The number of data points within the Evaluation Periods that must be breaching to cause the alarm to go to the ALARM state."
+}

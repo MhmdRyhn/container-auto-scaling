@@ -1,6 +1,6 @@
 resource "aws_appautoscaling_target" "container_auto_scaling_target" {
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity       = var.scaling_min_capacity
+  max_capacity       = var.scaling_max_capacity
   resource_id        = var.scaling_target_resource_id
   service_namespace  = var.scaling_service_namespace
   scalable_dimension = var.scalable_dimension
@@ -41,6 +41,7 @@ resource "aws_appautoscaling_policy" "container_scale_out_policy" {
       # metric_interval_upper_bound = +infinity
       scaling_adjustment = 6
     }
+    # There can be more and more `step_adjustment` block
   }
 }
 
@@ -55,13 +56,13 @@ resource "aws_appautoscaling_policy" "container_scale_in_policy" {
     adjustment_type         = "ExactCapacity"
     metric_aggregation_type = "Average"
     step_adjustment {
-      metric_interval_lower_bound = -6
+      metric_interval_lower_bound = -(var.scaling_step_size + 1)
       metric_interval_upper_bound = -1
       scaling_adjustment          = 1
     }
     step_adjustment {
       # metric_interval_lower_bound = -infinity
-      metric_interval_upper_bound = -6
+      metric_interval_upper_bound = -(var.scaling_step_size + 1)
       scaling_adjustment          = 0
     }
   }

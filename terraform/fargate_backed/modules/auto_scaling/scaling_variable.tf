@@ -32,5 +32,5 @@ variable "scalable_dimension" {
 
 variable "scaling_step_size" {
   type        = number
-  description = "Step size for automatic scaling out/in."
+  description = "Step size for automatic scaling out/in. This should be the number of requests a server can handle per minute."
 }
