@@ -12,7 +12,7 @@ data "template_file" "ecs_container_definition" {
     health_check_interval = var.container_health_check.interval
     health_check_retries  = var.container_health_check.retries
     health_check_path     = var.container_health_check.path
-    log_group_name        = var.container_log_group_name
+    log_group_name        = aws_cloudwatch_log_group.container_log_group.name
     log_group_region      = var.container_log_group_region
     log_stream_prefix     = var.container_log_stream_prefix
   }

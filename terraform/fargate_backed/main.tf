@@ -5,13 +5,14 @@ provider "aws" {
 
 
 module "alb" {
-  source               = "./modules/alb"
-  resource_name_prefix = local.resource_name_prefix
-  common_tags          = local.common_tags
-  vpc_id               = var.vpc_id
-  alb_subnets_id       = var.alb_subnets_id
-  alb_protocol         = var.alb_protocol
-  alb_health_check     = var.alb_health_check_params
+  source                      = "./modules/alb"
+  resource_name_prefix        = local.resource_name_prefix
+  common_tags                 = local.common_tags
+  vpc_id                      = var.vpc_id
+  alb_subnets_id              = var.alb_subnets_id
+  alb_protocol                = var.alb_protocol
+  target_deregistration_delay = var.target_deregistration_delay
+  alb_health_check            = var.alb_health_check_params
 }
 
 module "ecs" {
@@ -33,7 +34,7 @@ module "ecs" {
   alb_health_check_grace_period = var.alb_health_check_grace_period
   ecs_target_group              = module.alb.alb_target_group
   alb_listener                  = module.alb.alb_listener
-  container_log_group_name      = local.container_log_group_name
+  container_log_group_name      = var.container_log_group_name
   container_log_group_region    = var.aws_region
   container_log_stream_prefix   = local.container_log_stream_prefix
 }

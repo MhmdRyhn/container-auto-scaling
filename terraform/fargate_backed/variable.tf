@@ -42,6 +42,11 @@ variable "alb_protocol" {
   default     = "http"
 }
 
+variable "target_deregistration_delay" {
+  type        = number
+  description = "The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused."
+}
+
 variable "alb_health_check_params" {
   type = object({
     timeout  = number

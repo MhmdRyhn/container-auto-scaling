@@ -11,9 +11,10 @@ resource "aws_lb_target_group" "alb_target_group" {
   name        = "${var.resource_name_prefix}-target-group"
   vpc_id      = var.vpc_id
   target_type = "ip"
-  protocol    = local.http.protocol
-  port        = local.http.port
-  //  slow_start  = 10
+  # TODO: Need to change this to dynamic value based on input
+  protocol             = local.http.protocol
+  port                 = local.http.port
+  deregistration_delay = var.target_deregistration_delay
   stickiness {
     type    = "lb_cookie"
     enabled = false

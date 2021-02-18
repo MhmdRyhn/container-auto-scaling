@@ -5,9 +5,10 @@ prefix      = "learning"
 service     = ""
 environment = "test"
 # For the "./modules/alb" module
-vpc_id         = "vpc-1234567a"
-alb_subnets_id = ["subnet-1a2b3c4d", "subnet-2a3b4c5d"]
-alb_protocol   = "http"
+vpc_id                      = "vpc-1234567a"
+alb_subnets_id              = ["subnet-1a2b3c4d", "subnet-2a3b4c5d"]
+alb_protocol                = "http"
+target_deregistration_delay = 5
 alb_health_check_params = {
   timeout  = 5
   interval = 10
