@@ -7,7 +7,8 @@ aws_profile="dev"
 account_id=$(aws sts --profile $aws_profile get-caller-identity | jq -r ".Account")
 aws_region="eu-west-1"
 
-tag=$(date +"%y%m%d-%H%M")
+#tag=$(date +"%y%m%d-%H%M")
+tag="latest"
 
 # Build docker image
 docker build . -t "$account_id.dkr.ecr.$aws_region.amazonaws.com/container-auto-scaling:$tag"
