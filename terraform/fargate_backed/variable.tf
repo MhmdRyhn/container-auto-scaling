@@ -81,7 +81,7 @@ variable "container_health_check_params" {
   type = object({
     timeout  = number
     interval = number
-    retries = number
+    retries  = number
     path     = string
   })
 }

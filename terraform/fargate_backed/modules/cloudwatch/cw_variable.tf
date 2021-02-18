@@ -14,7 +14,7 @@ variable "alb_target_group" {
 }
 
 variable "request_per_server_per_minute" {
-  type = number
+  type        = number
   description = "Number of request a server can handle per minute."
 }
 
