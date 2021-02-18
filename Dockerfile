@@ -7,6 +7,7 @@ RUN apt-get update -y \
   build-essential \
   python3-dev \
   vim \
+  curl \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -19,6 +20,7 @@ RUN venv/bin/pip install --upgrade pip && venv/bin/pip install -r requirements.t
 # To server the app using Apache2
 RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf && \
   cp ./container-auto-scaling.apache2.conf /etc/apache2/sites-available/container-auto-scaling.apache2.conf && \
-  a2dissite 000-default.conf && a2ensite container-auto-scaling.apache2.conf
+  a2dissite 000-default.conf && \
+  a2ensite container-auto-scaling.apache2.conf
 EXPOSE 80
 CMD /usr/sbin/apache2ctl -D FOREGROUND
