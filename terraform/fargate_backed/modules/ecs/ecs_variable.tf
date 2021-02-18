@@ -79,6 +79,11 @@ variable "service_security_groups_id" {
   description = "A list of security groups' id."
 }
 
+variable "alb_health_check_grace_period" {
+  type = number
+  description = "Time (in seconds) to ignore failing load balancer health checks on newly instantiated tasks."
+}
+
 variable "ecs_target_group" {
   description = "ECS target group Resource."
 }

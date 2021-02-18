@@ -32,6 +32,7 @@ resource "aws_ecs_service" "container_service" {
   platform_version                   = "LATEST"
 //  platform_version                   = "1.4.0"
   deployment_minimum_healthy_percent = 100
+  health_check_grace_period_seconds  = var.alb_health_check_grace_period
   network_configuration {
     subnets          = var.service_subnets_id
     security_groups  = var.service_security_groups_id
