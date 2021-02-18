@@ -1,7 +1,7 @@
 data "template_file" "ecs_container_definition" {
   template = file("${path.module}/templates/container-definition.json.tpl")
   vars = {
-    container_name        = var. container_name
+    container_name        = var.container_name
     host_port             = var.container_port
     container_port        = var.container_port
     cpu_unit              = var.container_cpu_unit

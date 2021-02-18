@@ -9,7 +9,7 @@ variable "common_tags" {
 }
 
 variable "container_name" {
-  type = string
+  type        = string
   description = "Name of the container."
 }
 
@@ -80,7 +80,7 @@ variable "service_security_groups_id" {
 }
 
 variable "alb_health_check_grace_period" {
-  type = number
+  type        = number
   description = "Time (in seconds) to ignore failing load balancer health checks on newly instantiated tasks."
 }
 

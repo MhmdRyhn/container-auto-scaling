@@ -1,6 +1,6 @@
 resource "aws_ecs_cluster" "container_cluster" {
-  name                = "${var.resource_name_prefix}-container-cluster"
-  capacity_providers  = ["FARGATE"]
+  name               = "${var.resource_name_prefix}-container-cluster"
+  capacity_providers = ["FARGATE"]
   setting {
     name  = "containerInsights"
     value = "enabled"
@@ -23,14 +23,14 @@ resource "aws_ecs_task_definition" "container_task_definition" {
 
 resource "aws_ecs_service" "container_service" {
   # Configure service
-  name                               = "${var.resource_name_prefix}-container-service"
-  cluster                            = aws_ecs_cluster.container_cluster.id
-  task_definition                    = aws_ecs_task_definition.container_task_definition.arn
-  scheduling_strategy                = "REPLICA"
-  desired_count                      = 1
-  launch_type                        = "FARGATE"
-  platform_version                   = "LATEST"
-//  platform_version                   = "1.4.0"
+  name                = "${var.resource_name_prefix}-container-service"
+  cluster             = aws_ecs_cluster.container_cluster.id
+  task_definition     = aws_ecs_task_definition.container_task_definition.arn
+  scheduling_strategy = "REPLICA"
+  desired_count       = 1
+  launch_type         = "FARGATE"
+  platform_version    = "LATEST"
+  //  platform_version                   = "1.4.0"
   deployment_minimum_healthy_percent = 100
   health_check_grace_period_seconds  = var.alb_health_check_grace_period
   network_configuration {
